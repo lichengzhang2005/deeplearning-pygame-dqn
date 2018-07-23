@@ -5,6 +5,7 @@ import gym
 import numpy as np
 from collections import deque
 from game import Game
+import datetime
 
 # from tensorflow.keras import Sequential # import Sequential
 # from tf.keras.layers import Dense
@@ -101,8 +102,10 @@ if __name__ == "__main__":
             agent.remember(state, action, reward, next_state, done)
             state = next_state
             if done:
-                print("episode: {}/{}, score: {}, e: {:.2}"
-                      .format(e, EPISODES, reward_sum, agent.epsilon))
+                print("time:{}, episode: {}/{}, score: {}, e: {:.2}"
+                      .format(
+                          datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                          , e, EPISODES, reward_sum, agent.epsilon))
                 break
             if len(agent.memory) > batch_size and e > agent.observe:
                 agent.replay(batch_size)
